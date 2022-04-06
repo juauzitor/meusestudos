@@ -149,11 +149,11 @@ int main (int argc, char *argv[]) {
     while(1){
 		scanf("%s", op);
 		if(strcmp(op, "I") == 0){
-			scanf("%c", &t);
+			scanf(" %c", &t);
 			insere_no(&raiz, t);
 		} 
 		else if(strcmp(op, "P") == 0){
-			scanf("%c", &t);
+			scanf(" %c", &t);
 			if(busca_no(raiz, t) != NULL) printf("%c existe\n", t);
 			else printf("%c nao existe\n", t);
 		}
