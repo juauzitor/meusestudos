@@ -146,8 +146,7 @@ int main (int argc, char *argv[]) {
     tp_arvore raiz = inicializa_arvore();
     char op[8];
 	tp_item t;
-    while(1){
-		scanf("%s", op);
+    while(scanf("%s", op) != EOF){
 		if(strcmp(op, "I") == 0){
 			scanf(" %c", &t);
 			insere_no(&raiz, t);
