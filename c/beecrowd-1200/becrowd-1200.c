@@ -2,11 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef int bool;
-#define true 1
-#define false 0
-
-typedef int tp_item;
+typedef char tp_item;
 
 typedef struct tp_no{
     struct tp_no *esq;
@@ -77,7 +73,7 @@ tp_no * busca_filhos_do_maior(tp_no *p){
 
 void pre_ordem(tp_no *p, tp_no *aux) {
 	if(p!=NULL) {
-        printf("%d",p->info);
+        printf("%c",p->info);
         if(p != aux) printf(" ");
 		pre_ordem(p->esq, aux);
 		pre_ordem(p->dir, aux);
@@ -87,7 +83,7 @@ void pre_ordem(tp_no *p, tp_no *aux) {
 void em_ordem (tp_no *p, tp_no *aux) { 
   if (p != NULL) {
     	em_ordem (p->esq, aux);
-	    printf("%d",p->info);
+	    printf("%c",p->info);
         if(p != aux) printf(" ");
     	em_ordem (p->dir, aux);
     }
@@ -97,7 +93,7 @@ void pos_ordem (tp_no *p, tp_no *aux) {
 	if (p != NULL) {
         pos_ordem (p->esq, aux);
     	pos_ordem (p->dir, aux);
-        printf("%d",p->info);
+        printf("%c",p->info);
         if(p != aux) printf(" ");
     }
 }
@@ -149,17 +145,17 @@ void destroi_arvore(tp_arvore *raiz){
 int main (int argc, char *argv[]) {
     tp_arvore raiz = inicializa_arvore();
     char op[8];
-	tp_item t=0;
+	tp_item t;
     while(1){
 		scanf("%s", op);
 		if(strcmp(op, "I") == 0){
-			scanf("%d", &t);
+			scanf("%c", &t);
 			insere_no(&raiz, t);
 		} 
 		else if(strcmp(op, "P") == 0){
-			scanf("%d", &t);
-			if(busca_no(raiz, t) != NULL) printf("%d existe\n", t);
-			else printf("%d nao existe\n", t);
+			scanf("%c", &t);
+			if(busca_no(raiz, t) != NULL) printf("%c existe\n", t);
+			else printf("%c nao existe\n", t);
 		}
 		else if(strcmp(op, "PREFIXA") == 0){
 			pre_ordem(raiz, busca_filhos_do_maior(busca_maior(raiz)));
