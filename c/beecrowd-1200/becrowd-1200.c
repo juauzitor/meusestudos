@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef int bool;
 #define true 1
@@ -147,32 +148,30 @@ void destroi_arvore(tp_arvore *raiz){
 
 int main (int argc, char *argv[]) {
     tp_arvore raiz = inicializa_arvore();
-    int n=0;
+    char op[8];
 	tp_item t=0;
     while(1){
-		scanf("%d", &n);
-		switch(n){
-			case 1:
-				scanf("%d", &t);
-				insere_no(&raiz, t);
-				break;
-			case 2:
-				scanf("%d", &t);
-				if(busca_no(raiz, t) != NULL) printf("%d existe\n", t);
-				else printf("%d nao existe\n", t);
-				break;
-			case 3:
-				pre_ordem(raiz, busca_filhos_do_maior(busca_maior(raiz)));
-				printf("\n");
-				break;
-			case 4:
-				em_ordem(raiz, busca_maior(raiz));
-				printf("\n");
-				break;
-			case 5:
-				pos_ordem(raiz, raiz);
-				printf("\n"); 
-				break;
+		scanf("%s", op);
+		if(strcmp(op, "I") == 0){
+			scanf("%d", &t);
+			insere_no(&raiz, t);
+		} 
+		else if(strcmp(op, "P") == 0){
+			scanf("%d", &t);
+			if(busca_no(raiz, t) != NULL) printf("%d existe\n", t);
+			else printf("%d nao existe\n", t);
+		}
+		else if(strcmp(op, "PREFIXA") == 0){
+			pre_ordem(raiz, busca_filhos_do_maior(busca_maior(raiz)));
+			printf("\n");
+		}
+		else if(strcmp(op, "INFIXA") == 0){
+			em_ordem(raiz, busca_maior(raiz));
+			printf("\n");
+		}
+		else if(strcmp(op, "POSFIXA") == 0){
+			pos_ordem(raiz, raiz);
+			printf("\n"); 
 		}
 	}
 	   	
