@@ -69,7 +69,7 @@ tp_no * busca_maior(tp_no *p){
 void pre_ordem(tp_no *p, tp_no *aux) {
 	if(p!=NULL) {
         printf("%d",p->info);
-        if(p != aux) printf(" ");
+        if(p != aux) printf(" "); // como deixa de printar no maior valor acontece de ficar sem um espaço os dados
 		pre_ordem(p->esq, aux);
 		pre_ordem(p->dir, aux);
 	} 
@@ -139,28 +139,34 @@ void destroi_arvore(tp_arvore *raiz){
 
 int main (int argc, char *argv[]) {
     tp_arvore raiz = inicializa_arvore();
-    insere_no(&raiz, 5);
-    insere_no(&raiz, 7);
-    insere_no(&raiz, 8);
-    insere_no(&raiz, 4);
-    insere_no(&raiz, 15);
-    insere_no(&raiz, 5);
-    insere_no(&raiz, 6);
-    insere_no(&raiz, 2);
-    insere_no(&raiz, 3);
-    insere_no(&raiz, 3);
-    insere_no(&raiz, 4);
-    insere_no(&raiz, 1);
-    pre_ordem(raiz, busca_maior(raiz));
-    printf("\n"); 
-    em_ordem(raiz, busca_maior(raiz));
-    printf("\n"); 
-    pos_ordem(raiz, raiz);
-    printf("\n"); 
-    
-    if(busca_no(raiz, 3) != NULL) printf("%d existe\n", 3);
-    else printf("%d nao existe\n");
-    	
-
+    int n=0;
+	tp_item t=0;
+    while(1){
+		scanf("%d", &n);
+		switch(n){
+			case 1:
+				scanf("%d", &t);
+				insere_no(&raiz, t);
+				break;
+			case 2:
+				scanf("%d", &t);
+				if(busca_no(raiz, t) != NULL) printf("%d existe\n", t);
+				else printf("%d nao existe\n", t);
+				break;
+			case 3:
+				pre_ordem(raiz, busca_maior(raiz));
+				printf("\n");
+				break;
+			case 4:
+				em_ordem(raiz, busca_maior(raiz));
+				printf("\n");
+				break;
+			case 5:
+				pos_ordem(raiz, raiz);
+				printf("\n"); 
+				break;
+		}
+	}
+	   	
     return 0;
 }
