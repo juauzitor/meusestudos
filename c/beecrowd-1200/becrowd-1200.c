@@ -66,10 +66,18 @@ tp_no * busca_maior(tp_no *p){
     return busca_maior(p->dir);
 }
 
+tp_no * busca_filhos_do_maior(tp_no *p){
+	if(p->dir != NULL){
+		busca_filhos_do_maior(p->dir);
+	} else if(p->esq != NULL){
+		busca_filhos_do_maior(p->esq);
+	} else return p;
+}
+
 void pre_ordem(tp_no *p, tp_no *aux) {
 	if(p!=NULL) {
         printf("%d",p->info);
-        if(p != aux) printf(" "); // como deixa de printar no maior valor acontece de ficar sem um espaço os dados
+        if(p != aux) printf(" ");
 		pre_ordem(p->esq, aux);
 		pre_ordem(p->dir, aux);
 	} 
@@ -154,7 +162,7 @@ int main (int argc, char *argv[]) {
 				else printf("%d nao existe\n", t);
 				break;
 			case 3:
-				pre_ordem(raiz, busca_maior(raiz));
+				pre_ordem(raiz, busca_filhos_do_maior(busca_maior(raiz)));
 				printf("\n");
 				break;
 			case 4:
