@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+//Author: João VItor Mendes Pinto dos Santos
+//github: https://github.com/juauzitor
+
 typedef char tp_item;
 
 typedef struct tp_no{
@@ -111,37 +114,6 @@ tp_no* busca_no (tp_no *p, tp_item e) {
  	return (NULL); 
 }
 
-tp_arvore busca_no_rec (tp_arvore p, tp_item e) {
-	if (p != NULL) { 
-		if (e < p->info) 
-			return busca_no_rec(p->esq, e); 
-		else 
-			if (e > p->info) 
-				return busca_no_rec(p->dir, e); 
-			else 
-				return (p);
-	}
-	else
- 		return (NULL); 
-}
-
-void destroi_no(tp_no *no){
-   if(no==NULL) return;
-   destroi_no(no->esq);
-   destroi_no(no->dir);
- //  printf("\n %d ", no->info);
-   free(no);
-   no = NULL;
-   return;
-}
-
-void destroi_arvore(tp_arvore *raiz){
-   if(*raiz==NULL) return;
-   destroi_no(*raiz);
-  // free(*raiz);
-   *raiz=NULL;
-}
-
 int main (int argc, char *argv[]) {
     tp_arvore raiz = inicializa_arvore();
     char op[8];
@@ -169,6 +141,5 @@ int main (int argc, char *argv[]) {
 			printf("\n"); 
 		}
 	}
-	   	
     return 0;
 }
