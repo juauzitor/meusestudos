@@ -3,7 +3,7 @@
 #include <string.h>
 
 void inserir_arvore(char str1[], char str2[], char lado){
-    if (str1 == NULL || strcmp(str1, "") == 0 || str2 == NULL || strcmp(str2, "") == 0) {
+    if (str1 == NULL || strcmp(str1, "") == 0 || strcmp(str1, "\0") == 0 || str2 == NULL || strcmp(str2, "") == 0 || strcmp(str2, "\0") == 0) {
         return;
     }
 
@@ -34,14 +34,14 @@ void inserir_arvore(char str1[], char str2[], char lado){
     }
     str2pe = strtok(str2cpy, cort2);
     for (int j = 0; j < (strlen(str1) - i); j++) {
-        str1cpyd[j] = str1[i+1];
+        str1cpyd[j] = str1[i+1+j];
     }
     for (int j = 0; j < (strlen(str2) - i); j++) {
-        str2cpyd[j] = str2[i+1];
+        str2cpyd[j] = str2[i+1+j];
     }
-
         inserir_arvore(str1pe, str2pe, 'e');
-        inserir_arvore(str1pd, str2pd, 'd');
+        //inserir_arvore(str1pd, str2pd, 'd');
+        inserir_arvore(str1cpyd, str2cpyd, 'd');
 }
 /*
     void inserir_arvore(char str1[], char str2[], char lado){
