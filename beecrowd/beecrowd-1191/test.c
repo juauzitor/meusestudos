@@ -4,7 +4,7 @@
 #include "bbteste.h"
 
 // Metodo para inserir na arvore os valores
-void inserir_arvore(char prefixa[], char infixa[], char lado){
+void inserir_arvore(tp_arvore *raiz,char prefixa[], char infixa[], char lado){
     if (prefixa == NULL || strcmp(prefixa, "") == 0 || strcmp(prefixa, "\0") == 0 || infixa == NULL || strcmp(infixa, "") == 0 || strcmp(infixa, "\0") == 0) {
         return;
     }
@@ -25,6 +25,7 @@ void inserir_arvore(char prefixa[], char infixa[], char lado){
         i++;
 
     // Recebe o lado que esta o o char e insere no lugar
+    insere_no(raiz, infixa[i]);
     if(lado == 'e')
         printf("Insert %c no lado esquerdo\n", infixa[i]);
     else
@@ -49,16 +50,19 @@ void inserir_arvore(char prefixa[], char infixa[], char lado){
         strinfixdir[j] = infixa[i+1+j];
     }
     // Chamada recursiva da função
-    inserir_arvore(strprefixesq, strinfixesq, 'e');
-    inserir_arvore(strprefixdir, strinfixdir, 'd');
+    inserir_arvore(&(*raiz)->esq ,strprefixesq, strinfixesq, 'e');
+    inserir_arvore(&(*raiz)->dir ,strprefixdir, strinfixdir, 'd');
 }
 
 int main (int argc, char *argv[]){
    // Recebe as 2 strings
     char prefixa[27] = "DBACEGF";
     char infixa[27] = "ABCDEFG";
-  
-    inserir_arvore(prefixa, infixa, 'e');
+    
+    tp_arvore raiz = inicializa_arvore();
 
+    inserir_arvore(&raiz, prefixa, infixa, 'e');
+    pos_ordem(raiz);
+    printf("\n");
     return 0;
 }
