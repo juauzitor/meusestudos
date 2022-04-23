@@ -30,7 +30,7 @@ tp_no *aloca_no() //aloca e retorna o endereço
 	return no;
 }
 
-int insere_no(tp_arvore *raiz, tp_item e, char lado){	
+int insere_no(tp_arvore *raiz, tp_item e){	
     tp_no *pai=NULL, *novo, *p;  //*p=ponteiro auxiliar
 	novo=aloca_no();//cria um novo elemento e coloca o endereço dele no novo
 	if(!novo) return 0; //não deu para alocar (novo==null)
