@@ -47,7 +47,7 @@ int insere_no(tp_arvore *raiz, tp_item e, char lado){
 void pre_ordem(tp_no *p) //imprime os elementos em pre-ordem
 {
 	if(p!=NULL)
-	{	printf("\n%c\n",p->info);
+	{	printf("%c",p->info);
 		pre_ordem(p->esq);
 		pre_ordem(p->dir);
     	}
@@ -64,7 +64,7 @@ void pos_ordem (tp_no *p) { //imprime os elementos em pós-ordem
 	 if (p != NULL) {
 	 pos_ordem (p->esq);
 	 pos_ordem (p->dir);
-	printf("\n%c\n",p->info);
+	printf("%c",p->info);
 }
 }
 

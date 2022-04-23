@@ -8,10 +8,13 @@ int main (int argc, char *argv[])
     insere_no(&raiz, 'D', 'r');
     insere_no(&raiz->esq, 'B', 'e');
     insere_no(&(raiz->esq)->esq, 'A', 'e');
-    insere_no(&((raiz->esq)->esq)->esq, 'V', 'e');
-    insere_no(&raiz->dir, 'E', 'e');
     insere_no(&(raiz->esq)->dir, 'C', 'e');
-    em_ordem(raiz);
+    insere_no(&raiz->dir, 'E', 'e');
+    insere_no(&(raiz->dir)->dir, 'G', 'e');
+    insere_no(&((raiz->dir)->dir)->esq, 'F', 'e');
+    pre_ordem(raiz); printf(" "); em_ordem(raiz);
+    printf("\n");
+    pos_ordem(raiz);
     printf("\n");
     return 0;
 }
