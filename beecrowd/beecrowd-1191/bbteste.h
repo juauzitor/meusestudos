@@ -1,7 +1,7 @@
 #include<stdlib.h>
 #include<stdio.h>
 	
-typedef int tp_item;	
+typedef char tp_item;	
 	
 typedef struct tp_no{
 	struct tp_no *esq;
@@ -34,35 +34,28 @@ int insere_no(tp_arvore *raiz, tp_item e, char lado){
     tp_no *pai=NULL, *novo, *p;  //*p=ponteiro auxiliar
 	novo=aloca_no();//cria um novo elemento e coloca o endereço dele no novo
 	if(!novo) return 0; //não deu para alocar (novo==null)
-
+    pai = *raiz;
 	novo->info=e;
 	novo->esq=NULL;
 	novo->dir=NULL;
 
-	if(pai!=NULL) //Qual ponteiro do pai (esq ou dir) irá apontar para o novo nó
-	{	
-		if (lado == 'r')
-		    pai = novo;
-		else if (lado == 'e')
-            pai->esq = novo;
-        else 
-		   pai->dir = novo;
-	}
+    *raiz = novo;
+	
 	return 1;	
 }
 
 void pre_ordem(tp_no *p) //imprime os elementos em pre-ordem
 {
 	if(p!=NULL)
-	{	printf("\n%d\n",p->info);
+	{	printf("\n%c\n",p->info);
 		pre_ordem(p->esq);
 		pre_ordem(p->dir);
-	}
+    	}
 }	
 void em_ordem (tp_no *p) {  //imprime os elementos em ordem
   if (p != NULL) {
 	em_ordem (p->esq);
-	printf("\n%d\n",p->info);
+	printf("%c",p->info);
 	em_ordem (p->dir);
     }
 }
@@ -71,7 +64,7 @@ void pos_ordem (tp_no *p) { //imprime os elementos em pós-ordem
 	 if (p != NULL) {
 	 pos_ordem (p->esq);
 	 pos_ordem (p->dir);
-	printf("\n%d\n",p->info);
+	printf("\n%c\n",p->info);
 }
 }
 
