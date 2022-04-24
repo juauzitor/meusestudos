@@ -48,28 +48,12 @@ int insere_no(tp_arvore *raiz, tp_item e){
 	return 1;	
 }
 
-void pre_ordem(tp_no *p) //imprime os elementos em pre-ordem
-{
-	if(p!=NULL)
-	{	printf("%c",p->info);
-		pre_ordem(p->esq);
-		pre_ordem(p->dir);
-    	}
-}	
-void em_ordem (tp_no *p) {  //imprime os elementos em ordem
-  if (p != NULL) {
-	em_ordem (p->esq);
-	printf("%c",p->info);
-	em_ordem (p->dir);
-    }
-}
-
 void pos_ordem (tp_no *p) { //imprime os elementos em pós-ordem 
-	 if (p != NULL) {
-	 pos_ordem (p->esq);
-	 pos_ordem (p->dir);
-	printf("%c",p->info);
-}
+	if (p != NULL) {
+	pos_ordem (p->esq);
+    pos_ordem (p->dir);
+    printf("%c",p->info);
+    }
 }
 
 int altura_arvore(tp_arvore raiz){
@@ -101,12 +85,12 @@ void destroi_arvore(tp_arvore *raiz){
 }
 
 // Metodo para inserir na arvore os valores
-void inserir_arvore(tp_arvore *raiz,char prefixa[], char infixa[], char lado){
+void inserir_arvore(tp_arvore *raiz,char prefixa[], char infixa[]){
+    // Evita um loop infinito na recursão
     if (prefixa == NULL || strcmp(prefixa, "") == 0 || strcmp(prefixa, "\0") == 0 || infixa == NULL || strcmp(infixa, "") == 0 || strcmp(infixa, "\0") == 0) {
         return;
     }
-
-    int i = 0;
+    int i = 0, j = 0;
     char strprefixesq[27] = "\0";
     char strinfixesq[27] = "\0";
     char strprefixdir[27] = "\0";
@@ -121,48 +105,41 @@ void inserir_arvore(tp_arvore *raiz,char prefixa[], char infixa[], char lado){
     while (infixa[i] != prefixa[0])
         i++;
 
-    // Recebe o lado que esta o o char e insere no lugar
+    // Insere os valores no nó
     insere_no(raiz, infixa[i]);
-    if(lado == 'r')
-		printf("Insert %c na raiz\n", infixa[i]);
-	else if(lado == 'e')
-        printf("Insert %c no lado esquerdo\n", infixa[i]);
-    else
-        printf("Insert %c no lado direto\n", infixa[i]);
 
     // strprefixesq[i+1] para pegar o elemento apos o ultimo da esquerda e quebrar a string lá
     cort1[0] = strprefixesq[i+1];
     cort2[0] = strinfixesq[i];
     strtok(strprefixesq, cort1);
-    // Recebe o valor da string nº 1 que esta à esquerda 
-    for (int j = 0; j < strlen(strprefixesq); j++) {
+    // Recebe o valor da string nº 1 que esta à esquerda, passando sempre o elemento do lado para eliminar a raiz 
+    for (j = 0; j < strlen(strprefixesq); j++) {
         strprefixesq[j] = strprefixesq[j+1]; 
     }
     // Recebe o valor da string nº 2 que esta à esquerda 
     strtok(strinfixesq, cort2);
     // Recebe o valor da string nº 1 que esta à direita 
-    for (int j = 0; j < (strlen(prefixa) - i); j++) {
+    for (j = 0; j < (strlen(prefixa) - i); j++) {
         strprefixdir[j] = prefixa[i+1+j];
     }
     // Recebe o valor da string nº 2 que esta à direita 
-    for (int j = 0; j < (strlen(infixa) - i); j++) {
+    for (j = 0; j < (strlen(infixa) - i); j++) {
         strinfixdir[j] = infixa[i+1+j];
     }
     // Chamada recursiva da função
-    inserir_arvore(&(*raiz)->esq ,strprefixesq, strinfixesq, 'e');
-    inserir_arvore(&(*raiz)->dir ,strprefixdir, strinfixdir, 'd');
+    inserir_arvore(&(*raiz)->esq ,strprefixesq, strinfixesq);
+    inserir_arvore(&(*raiz)->dir ,strprefixdir, strinfixdir);
 }
 
 int main (int argc, char *argv[]){
-    tp_arvore raiz = inicializa_arvore();
     char prefixa[27];
     char infixa[27];
     while(scanf(" %s", prefixa) != EOF && scanf(" %s", infixa) != EOF){
-        printf("pre: %s | in: %s\n", prefixa, infixa);
-		inserir_arvore(&raiz, prefixa, infixa, 'r');
+        tp_arvore raiz = inicializa_arvore();
+		inserir_arvore(&raiz, prefixa, infixa);
 		pos_ordem(raiz);
 		printf("\n");
+        destroi_arvore(&raiz);
     }
-    printf("EOF\n");
     return 0;
 }
